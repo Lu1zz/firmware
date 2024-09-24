@@ -144,6 +144,8 @@ OBJS += ton.o
 OBJS += ton_bits.o
 OBJS += ton_cell.o
 OBJS += ton_tokens.o
+OBJS += ton_address.o
+OBJS += ton_layout.o
 endif
 
 OBJS += debug.o

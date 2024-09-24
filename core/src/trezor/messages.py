@@ -8004,10 +8004,12 @@ if TYPE_CHECKING:
         address_n: "list[int]"
         destination: "str"
         jetton_master_address: "str | None"
+        jetton_wallet_address: "str | None"
         ton_amount: "int"
         jetton_amount: "int | None"
         fwd_fee: "int"
         comment: "str | None"
+        is_raw_data: "bool"
         mode: "int"
         seqno: "int"
         expire_at: "int"
@@ -8016,6 +8018,9 @@ if TYPE_CHECKING:
         workchain: "TonWorkChain"
         is_bounceable: "bool"
         is_testnet_only: "bool"
+        ext_destination: "list[str]"
+        ext_ton_amount: "list[int]"
+        ext_payload: "list[str]"
 
         def __init__(
             self,
@@ -8025,10 +8030,15 @@ if TYPE_CHECKING:
             seqno: "int",
             expire_at: "int",
             address_n: "list[int] | None" = None,
+            ext_destination: "list[str] | None" = None,
+            ext_ton_amount: "list[int] | None" = None,
+            ext_payload: "list[str] | None" = None,
             jetton_master_address: "str | None" = None,
+            jetton_wallet_address: "str | None" = None,
             jetton_amount: "int | None" = None,
             fwd_fee: "int | None" = None,
             comment: "str | None" = None,
+            is_raw_data: "bool | None" = None,
             mode: "int | None" = None,
             wallet_version: "TonWalletVersion | None" = None,
             wallet_id: "int | None" = None,
@@ -8043,12 +8053,14 @@ if TYPE_CHECKING:
             return isinstance(msg, cls)
 
     class TonSignedMessage(protobuf.MessageType):
-        signature: "bytes"
+        signature: "bytes | None"
+        signning_message: "bytes | None"
 
         def __init__(
             self,
             *,
-            signature: "bytes",
+            signature: "bytes | None" = None,
+            signning_message: "bytes | None" = None,
         ) -> None:
             pass
 
@@ -8087,12 +8099,12 @@ if TYPE_CHECKING:
             return isinstance(msg, cls)
 
     class TonSignedProof(protobuf.MessageType):
-        signature: "bytes"
+        signature: "bytes | None"
 
         def __init__(
             self,
             *,
-            signature: "bytes",
+            signature: "bytes | None" = None,
         ) -> None:
             pass
 

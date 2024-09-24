@@ -39,15 +39,16 @@ void fsm_msgTonGetAddress(const TonGetAddress *msg) {
 
   char raw_address[32] = {0};
   ton_get_address_from_public_key(node->public_key + 1, raw_address);
-  ton_to_user_friendly(msg->workchain, (const char*)raw_address, msg->is_bounceable, msg->is_testnet_only, resp->address);
-  
+  ton_to_user_friendly(msg->workchain, (const char *)raw_address,
+                       msg->is_bounceable, msg->is_testnet_only, resp->address);
+
   if (msg->has_show_display && msg->show_display) {
     char desc[16] = {0};
     strcat(desc, "Ton");
     strcat(desc, _("Address:"));
+
     if (!fsm_layoutAddress(resp->address, NULL, desc, false, 0, msg->address_n,
                            msg->address_n_count, false, NULL, 0, 0, NULL)) {
-      printf("\nfailed to layout address");
       return;
     }
   }
@@ -65,7 +66,7 @@ void fsm_msgTonSignMessage(const TonSignMessage *msg) {
   CHECK_PIN
   RESP_INIT(TonSignedMessage);
   HDNode *node = fsm_getDerivedNode(ED25519_NAME, msg->address_n,
-                                          msg->address_n_count, NULL);
+                                    msg->address_n_count, NULL);
   if (!node) return;
 
   hdnode_fill_public_key(node);
@@ -87,11 +88,11 @@ void fsm_msgTonSignProof(const TonSignProof *msg) {
   CHECK_PIN
   RESP_INIT(TonSignedProof);
   HDNode *node = fsm_getDerivedNode(ED25519_NAME, msg->address_n,
-                                          msg->address_n_count, NULL);
+                                    msg->address_n_count, NULL);
   if (!node) return;
 
   hdnode_fill_public_key(node);
-  
+
   if (ton_sign_proof(msg, node, resp)) {
     msg_write(MessageType_MessageType_TonSignedProof, resp);
   } else {

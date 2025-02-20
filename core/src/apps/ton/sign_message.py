@@ -8,7 +8,6 @@ from trezor.messages import TonSignedMessage, TonSignMessage
 
 from apps.common import paths, seed
 from apps.common.keychain import Keychain, auto_keychain
-from apps.ton.tonsdk.boc import Cell
 from apps.ton.tonsdk.contract.token.ft import JettonWallet
 from apps.ton.tonsdk.contract.wallet import Wallets, WalletVersionEnum
 from apps.ton.tonsdk.utils._address import Address
